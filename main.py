@@ -5,8 +5,10 @@ from tempfile import gettempdir
 import uuid
 import os
 import json
-from firebaseMethods import get_current_user_uid, addSocialGreeting
+from firebaseMethods import get_current_user_uid, addSocialGreeting, addSocialLinkForUser, uploadIcon
 from interfaces.social_link_greeting import SocialLinkGreeting
+from interfaces.social_link import SocialLink
+from datetime import datetime, timezone
 
 app = FastAPI()
 
@@ -51,3 +53,23 @@ async def getUserId(greeting:SocialLinkGreeting,uid: str =  Depends(get_current_
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
     
+@app.post("/addSocialLink")
+async def addSocialLink(socialLink:SocialLink, uid: str = Depends(get_current_user_uid)):
+    try:
+        await addSocialLinkForUser(uid,socialLink)
+        return {"message" : "Social Link for the user was successfully added"}
+    except Exception as e:
+        raise HTTPException(status_code=500,detail=str(e))
+
+@app.post("/uploadIconAndGetURL")
+async def uploadIconAndGetURL(uid: str = Depends(get_current_user_uid), file:UploadFile = File(...)):
+    try:
+        file_ext = file.filename.split('.')[-1]
+        unique_name = f"user-icons/{uid}/{datetime.now(timezone.utc).timestamp()}_{uuid.uuid4()}.{file_ext}"
+        file_data = await file.read()
+        file_content_type = file.content_type
+        url = await uploadIcon(file_data,file_content_type,unique_name)
+        return {"url": url}
+    except Exception as e:
+        raise HTTPException(status_code=500,detail=str(e))
+        

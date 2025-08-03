@@ -1,9 +1,12 @@
-from fastapi import Request, HTTPException, Depends
-from firebase_admin import auth, credentials, initialize_app, firestore
+from fastapi import Request, HTTPException, File
+from firebase_admin import auth, credentials, initialize_app, firestore, storage
 from interfaces.social_link_greeting import SocialLinkGreeting
+from interfaces.social_link import SocialLink
 
 cred = credentials.Certificate("firebase-secret.json")
-initialize_app(cred)
+initialize_app(cred,{
+    "storageBucket": "socially-91ef8.firebasestorage.app"
+})
 firestore_client = firestore.client()
 
 async def get_current_user_uid(request: Request) -> str:
@@ -20,6 +23,17 @@ async def get_current_user_uid(request: Request) -> str:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
     
 async def addSocialGreeting(id:str, body:SocialLinkGreeting):
-    print("setting greeting of id",id)
-    print(body)
     firestore_client.collection("User").document(id).collection("SocialLinkGreeting").document("greeting").set(body.model_dump())
+    
+
+async def addSocialLinkForUser(id:str, body:SocialLink):
+    firestore_client.collection("User").document(id).collection("SocialLinks").add(body.model_dump())
+    
+async def uploadIcon(filedata:bytes, fileContentType:str,unique_name:str)->str:
+    bucket = storage.bucket()
+    blob = bucket.blob(unique_name)
+    blob.upload_from_string(filedata, content_type=fileContentType)
+    blob.make_public()
+    return blob.public_url
+    
+    
