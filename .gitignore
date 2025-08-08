@@ -1,3 +1,4 @@
 socially-env/
 .env
 firebase-secret.json
+.DS_store
