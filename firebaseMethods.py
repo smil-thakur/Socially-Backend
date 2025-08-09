@@ -2,6 +2,7 @@ from fastapi import Request, HTTPException, File
 from firebase_admin import auth, credentials, initialize_app, firestore, storage
 from interfaces.social_link_greeting import SocialLinkGreeting
 from interfaces.social_link import SocialLink
+from interfaces.resumeData import ResumeData
 
 cred = credentials.Certificate("firebase-secret.json")
 initialize_app(cred,{
@@ -28,6 +29,18 @@ async def addSocialGreeting(id:str, body:SocialLinkGreeting):
 
 async def addSocialLinkForUser(id:str, body:SocialLink):
     firestore_client.collection("User").document(id).collection("SocialLinks").add(body.model_dump())
+    
+async def addProfileForUser(id: str, body:ResumeData):
+    firestore_client.collection("User").document(id).collection("Profile").document(id).set(body.model_dump())
+    
+async def getProfileOfUser(id: str) -> ResumeData:
+    doc_ref = firestore_client.collection("User").document(id).collection("Profile").document(id)
+    doc_snapshot = doc_ref.get()
+
+    if doc_snapshot.exists:
+        data = doc_snapshot.to_dict()
+        return ResumeData(**data)
+    return None
     
 async def uploadIcon(filedata:bytes, fileContentType:str,unique_name:str)->str:
     bucket = storage.bucket()

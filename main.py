@@ -5,9 +5,10 @@ from tempfile import gettempdir
 import uuid
 import os
 import json
-from firebaseMethods import get_current_user_uid, addSocialGreeting, addSocialLinkForUser, uploadIcon
+from firebaseMethods import get_current_user_uid, addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser
 from interfaces.social_link_greeting import SocialLinkGreeting
 from interfaces.social_link import SocialLink
+from interfaces.resumeData import ResumeData
 from datetime import datetime, timezone
 from fastapi.encoders import jsonable_encoder
 
@@ -61,6 +62,26 @@ async def scanPDF(uid: str = Depends(get_current_user_uid),file:UploadFile = Fil
         return data
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
+    
+
+@app.post("/updateProfile")
+async def updateProfile(resumeData:ResumeData,uid: str = Depends(get_current_user_uid)):
+    try:
+        await addProfileForUser(uid,resumeData)
+        return {"message" : "user data updated successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500,detail=str(e))
+        
+
+@app.get("/userProfile")
+async def getUserProfile(uid: str= Depends(get_current_user_uid)):
+    try:
+        res = await getProfileOfUser(uid)
+        return res
+    except Exception as e:
+        raise HTTPException(status_code=500,detail=str(e))
+
+        
 
 
 
