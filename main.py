@@ -1,11 +1,11 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from DocsToInfoService import PDFtoInfo
+from services.DocsToInfoService import PDFtoInfo
 from tempfile import gettempdir
 import uuid
 import os
 import json
-from firebaseMethods import get_current_user_uid, addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser
+from methods.firebaseMethods import get_current_user_uid, addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser
 from interfaces.social_link_greeting import SocialLinkGreeting
 from interfaces.social_link import SocialLink
 from interfaces.resumeData import ResumeData
