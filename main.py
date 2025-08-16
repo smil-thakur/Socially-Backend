@@ -1,16 +1,19 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File, Depends
+from fastapi import FastAPI, HTTPException, UploadFile, File, Depends 
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
+import io
 from services.DocsToInfoService import PDFtoInfo
 from tempfile import gettempdir
 import uuid
-import os
-import json
 from methods.firebaseMethods import get_current_user_uid, addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser
 from interfaces.social_link_greeting import SocialLinkGreeting
 from interfaces.social_link import SocialLink
 from interfaces.resumeData import ResumeData
 from datetime import datetime, timezone
-from fastapi.encoders import jsonable_encoder
+from services.LatexToPDF import TexToPdfConverter
+from services.ResumeDataToLatex import ResumeDataToLatex
+from pathlib import Path
+
 
 app = FastAPI()
 
@@ -82,9 +85,24 @@ async def getUserProfile(uid: str= Depends(get_current_user_uid)):
         raise HTTPException(status_code=500,detail=str(e))
 
         
+@app.post("/convert-tex")
+async def convert_tex(file: UploadFile = File(...)):
+    try:
+        converter = TexToPdfConverter()   
+        pdf_bytes = await converter.tex_to_pdf_bytes(file)
+        return StreamingResponse(
+            io.BytesIO(pdf_bytes),
+            media_type="application/pdf",
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-
-
-
+@app.post("/getTexFromProfile")
+async def getTextFromProfile(file:ResumeData,uid: str = Depends(get_current_user_uid)):
+    converter = ResumeDataToLatex()
+    try:
+        return {"latex": await converter.get_latex(file)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
     
         

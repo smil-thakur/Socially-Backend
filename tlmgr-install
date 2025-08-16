@@ -1,0 +1,1 @@
+sudo tlmgr install latex-bin xcolor geometry amsmath hyperref fontspec preprint enumitem titlesec marvosym

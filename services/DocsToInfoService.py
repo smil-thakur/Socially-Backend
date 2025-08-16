@@ -1,7 +1,6 @@
 from agno.agent import Agent
 from agno.models.google import Gemini 
 from typing import Any, List, Optional
-from agno.utils.pprint import pprint_run_response
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 from agno.document.reader import pdf_reader
