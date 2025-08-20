@@ -5,7 +5,7 @@ import io
 from services.DocsToInfoService import PDFtoInfo
 from tempfile import gettempdir
 import uuid
-from methods.firebaseMethods import get_current_user_uid, addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser
+from methods.firebaseMethods import get_current_user_uid, addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser, saveTexFile, getSavedTexContent
 from interfaces.social_link_greeting import SocialLinkGreeting
 from interfaces.social_link import SocialLink
 from interfaces.resumeData import ResumeData
@@ -56,6 +56,28 @@ async def uploadIconAndGetURL(uid: str = Depends(get_current_user_uid), file:Upl
         return {"url": url}
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
+    
+@app.post("/saveResume")
+async def saveResumeTex(uid: str = Depends(get_current_user_uid),file:UploadFile = File(...)):
+    try:
+        file_ext = file.filename.split(".")[-1]
+        if(file_ext != "tex"):
+            raise HTTPException(status_code=500,detail="wrong file extension, file should be tex")
+        file_data = await file.read()
+        file_content_type = file.content_type
+        url = await saveTexFile(uid,file_data,file_content_type)
+        return url
+    except Exception as e:
+        raise HTTPException(status_code=500,detail=str(e))
+    
+@app.get("/getTexContent")
+async def getTexContent(uid: str = Depends(get_current_user_uid)):
+    try:
+        content = await getSavedTexContent(uid)
+        return {"latex":content}
+    except Exception as e:
+        raise HTTPException(status_code=500,detail=str(e))
+    
     
 @app.post("/scanpdf")
 async def scanPDF(uid: str = Depends(get_current_user_uid),file:UploadFile = File(...)):
