@@ -8,6 +8,7 @@ from interfaces.resumeData import ResumeData
 import aiohttp
 from google.oauth2 import service_account
 creds = service_account.Credentials.from_service_account_file("firebase_secret.json")
+import uuid
 
 
 cred = credentials.Certificate("firebase_secret.json")
@@ -78,13 +79,16 @@ async def uploadIcon(filedata:bytes, fileContentType:str,unique_name:str)->str:
     
     
 async def saveTexFile(id: str, filedata: bytes, fileContentType: str) -> str:
-    filename = f"user-texs/{id}/resume.tex"
+    filename = f"user-texs/{id}/{uuid.uuid4()}_resume.tex"
+    folder_prefix = f"user-texs/{id}/"
+    blobs = bucket.list_blobs(prefix=folder_prefix)
+
+    for b in blobs:
+        if b.name.endswith(".tex"):
+            b.delete()
 
     blob = bucket.blob(filename)
-    try:
-        blob.delete()  
-    except Exception as e:
-        pass
+
     blob.upload_from_string(filedata, content_type=fileContentType)
     blob.make_public()
 
@@ -168,7 +172,6 @@ async def getPdfFromEmail(email: str) -> bytes:
     try:
         
         pdf_bytes = await converter.tex_to_pdf_bytes(temp_file_path)
-        print(pdf_bytes)
         return pdf_bytes
     finally:
         

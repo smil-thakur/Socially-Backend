@@ -130,7 +130,6 @@ async def getTextFromProfile(file:ResumeData,uid: str = Depends(get_current_user
 @app.get("/getPdfFromEmail")
 async def getPdfFromEmailEndpoint(email: str):
     try:
-        print(email)
         pdf_bytes = await getPdfFromEmail(email)
         return StreamingResponse(
             io.BytesIO(pdf_bytes),
