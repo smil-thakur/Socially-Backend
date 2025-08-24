@@ -5,7 +5,7 @@ import io
 from services.DocsToInfoService import PDFtoInfo
 from tempfile import gettempdir
 import uuid
-from methods.firebaseMethods import get_current_user_uid, addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser, saveTexFile, getSavedTexContent
+from methods.firebaseMethods import get_current_user_uid, get_current_user_email ,addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser, saveTexFile, getSavedTexContent, mapIdToEmail, getIdFromEmail, deleteSocialLink, getPdfFromEmail
 from interfaces.social_link_greeting import SocialLinkGreeting
 from interfaces.social_link import SocialLink
 from interfaces.resumeData import ResumeData
@@ -126,5 +126,39 @@ async def getTextFromProfile(file:ResumeData,uid: str = Depends(get_current_user
         return {"latex": await converter.get_latex(file)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
+
+@app.get("/getPdfFromEmail")
+async def getPdfFromEmailEndpoint(email: str):
+    try:
+        print(email)
+        pdf_bytes = await getPdfFromEmail(email)
+        return StreamingResponse(
+            io.BytesIO(pdf_bytes),
+            media_type="application/pdf",
+            headers={"Content-Disposition": f"attachment; filename=resume_{email}.pdf"}
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
         
+@app.post("/mapEmailToId")
+async def mapEmailToId(uid: str= Depends(get_current_user_uid),email: str = Depends(get_current_user_email)):
+    try:
+        await mapIdToEmail(uid,email)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+        
+@app.get("/getIdFromEmail")
+async def getIdFromMail(email: str):
+    try:
+        return {"id":await getIdFromEmail(email)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.delete("/deleteSocialLink")
+async def deleteSocialLinkAPI(sid:str,uid: str=Depends(get_current_user_uid)):
+    try:
+        await deleteSocialLink(uid,sid)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
