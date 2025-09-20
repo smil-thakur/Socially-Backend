@@ -1,5 +1,6 @@
-socially-env/
+ENV/
 .env
 firebase_secret.json
 .DS_store
 test.tex
+**/__pycache__/

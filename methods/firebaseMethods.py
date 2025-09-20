@@ -145,6 +145,21 @@ async def deleteSocialLink(uid:str,sid:str):
     else:
         raise HTTPException(status_code=404, detail="SocialLink not found")
 
+async def saveBentoForUser(uid: str, website_data: dict):
+    """Save website data for a user"""
+    doc_ref = firestore_client.collection("User").document(uid).collection("Bento").document("bento")
+    await doc_ref.set(website_data)
+
+async def getBentoWebsite(uid: str) -> dict:
+    """Get saved website data for a user"""
+    print("getting bento for",uid)
+    doc_ref = firestore_client.collection("User").document(uid).collection("Bento").document("bento")
+    doc_snapshot = await doc_ref.get()
+    
+    if doc_snapshot.exists:
+        return doc_snapshot.to_dict()
+    return None
+
 async def getPdfFromEmail(email: str) -> bytes:
 
     

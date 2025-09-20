@@ -1,11 +1,11 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File, Depends 
+from fastapi import FastAPI, HTTPException, UploadFile, File, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import io
 from services.DocsToInfoService import PDFtoInfo
 from tempfile import gettempdir
 import uuid
-from methods.firebaseMethods import get_current_user_uid, get_current_user_email ,addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser, saveTexFile, getSavedTexContent, mapIdToEmail, getIdFromEmail, deleteSocialLink, getPdfFromEmail
+from methods.firebaseMethods import get_current_user_uid, get_current_user_email ,addSocialGreeting, addSocialLinkForUser, uploadIcon, addProfileForUser, getProfileOfUser, saveTexFile, getSavedTexContent, mapIdToEmail, getIdFromEmail, deleteSocialLink, getPdfFromEmail, saveBentoForUser, getBentoWebsite
 from interfaces.social_link_greeting import SocialLinkGreeting
 from interfaces.social_link import SocialLink
 from interfaces.resumeData import ResumeData
@@ -13,16 +13,17 @@ from datetime import datetime, timezone
 from services.LatexToPDF import TexToPdfConverter
 from services.ResumeDataToLatex import ResumeDataToLatex
 from pathlib import Path
+from services.UserBentoGenerator import UserBentoGenerator
 
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200"],  
+    allow_origins=["http://localhost:4200"],
     allow_credentials=True,
-    allow_methods=["*"],  
-    allow_headers=["*"],  
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.get("/")
@@ -161,3 +162,34 @@ async def deleteSocialLinkAPI(sid:str,uid: str=Depends(get_current_user_uid)):
         await deleteSocialLink(uid,sid)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/bento")
+async def get_bento(uid: str= Depends(get_current_user_uid)):
+    try:
+        portfolio_generator = UserBentoGenerator()
+        website_data = await portfolio_generator.get_bento(uid)
+        return website_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/saveBento")
+async def save_bento(website_data: dict, uid: str = Depends(get_current_user_uid)):
+    try:
+        await saveBentoForUser(uid, website_data)
+        return {"message": "Bento saved successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/getBentoFromEmail")
+async def get_bento_from_email(email: str):
+    try:
+        uid = await getIdFromEmail(email)
+        if not uid:
+            raise HTTPException(status_code=404, detail="User not found for this email")
+        website_data = await getBentoWebsite(uid)
+        if not website_data:
+            raise HTTPException(status_code=404, detail="No saved website found")
+        return website_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+

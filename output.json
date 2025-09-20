@@ -1,0 +1,345 @@
+{
+  "elements": [
+    {
+      "heading": "Smil Raj Thakur",
+      "content": "Software Engineer | Passionate about crafting innovative solutions and driving impactful results. Expertise in full-stack development with a focus on C#, Python, and TypeScript.",
+      "innerBentos": null,
+      "bigBento": true,
+      "layout": "featured",
+      "size": null,
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Skills Showcase",
+      "content": "A diverse skillset honed through academic excellence and professional experience.",
+      "innerBentos": [
+        {
+          "heading": "Languages",
+          "content": null,
+          "icon": "💻",
+          "badge": null,
+          "link": null
+        },
+        {
+          "heading": "Frameworks",
+          "content": null,
+          "icon": "🧰",
+          "badge": null,
+          "link": null
+        },
+        {
+          "heading": "Tools",
+          "content": null,
+          "icon": "🛠️",
+          "badge": null,
+          "link": null
+        }
+      ],
+      "bigBento": null,
+      "layout": null,
+      "size": null,
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Languages Proficiency",
+      "content": "Expertise in C#, Python, TypeScript, Java, Swift, SQL, Dart, C++, demonstrating a versatile coding foundation.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": null,
+      "accent": null,
+      "icon": "⚡️",
+      "image": null,
+      "tags": [
+        "C#",
+        "Python",
+        "TypeScript",
+        "Java",
+        "Swift",
+        "SQL",
+        "Dart",
+        "C++"
+      ],
+      "stats": null
+    },
+    {
+      "heading": "Frameworks Expertise",
+      "content": "Proficient in .NET, Angular, React.js, Node.js, HTML, CSS, Flutter, Swift UI, Native iOS Development, enabling full-stack capabilities.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": null,
+      "accent": null,
+      "icon": "⚛️",
+      "image": null,
+      "tags": [
+        ".NET",
+        "Angular",
+        "React.js",
+        "Node.js",
+        "HTML",
+        "CSS",
+        "Flutter",
+        "Swift UI",
+        "Native iOS Development"
+      ],
+      "stats": null
+    },
+    {
+      "heading": "Experience Timeline",
+      "content": "A journey of continuous growth and impactful contributions in the software engineering landscape.",
+      "innerBentos": [
+        {
+          "heading": "Zeus Learning",
+          "content": "Software Engineer (Jan 2024 – Present)",
+          "icon": "🏢",
+          "badge": null,
+          "link": null
+        }
+      ],
+      "bigBento": null,
+      "layout": "timeline",
+      "size": null,
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Project Spotlights",
+      "content": "Showcasing innovation and problem-solving through diverse project experiences.",
+      "innerBentos": [
+        {
+          "heading": "Clippy - Cross-Platform Smart Search Butler",
+          "content": "Developed a cross-platform AI desktop assistant with intelligent agent capabilities.",
+          "icon": "🤖",
+          "badge": null,
+          "link": null
+        },
+        {
+          "heading": "DayFlow - Team Calendar & Schedule Manager",
+          "content": "Built a responsive team calendar system with secure authentication and real-time collaboration.",
+          "icon": "📅",
+          "badge": null,
+          "link": null
+        },
+        {
+          "heading": "JustDrop",
+          "content": "Engineered a cross-device file-sharing web application with a drag-and-drop interface.",
+          "icon": "☁️",
+          "badge": null,
+          "link": null
+        }
+      ],
+      "bigBento": null,
+      "layout": null,
+      "size": null,
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Clippy - Tech Stack",
+      "content": "Utilizing Python, Flet, Gemini API, Agno Agent, and Asyncio to create an intelligent desktop assistant.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": null,
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": ["Python", "Flet", "Gemini API", "Agno Agent", "Asyncio"],
+      "stats": null
+    },
+    {
+      "heading": "DayFlow - Tech Stack",
+      "content": "Leveraging React, TypeScript, Supabase, Vite, and Tailwind for a seamless team calendar experience.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": null,
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": ["React", "TypeScript", "Supabase", "Vite", "Tailwind"],
+      "stats": null
+    },
+    {
+      "heading": "JustDrop - Tech Stack",
+      "content": "Implementing React.js, Tailwind CSS, and Firebase for secure and efficient file sharing.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": null,
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": ["React.js", "Tailwind CSS", "Firebase"],
+      "stats": null
+    },
+    {
+      "heading": "Education Highlights",
+      "content": "Academic foundation built on a strong understanding of Information and Communication Technology.",
+      "innerBentos": [
+        {
+          "heading": "Adani Institute of Infrastructure Engineering",
+          "content": "B.E., Information and Communication Technology (2020 – June 2024)",
+          "icon": "🎓",
+          "badge": null,
+          "link": null
+        }
+      ],
+      "bigBento": null,
+      "layout": "timeline",
+      "size": null,
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Academic Excellence",
+      "content": "Achieved a CGPA of 9.10 in B.E., Information and Communication Technology, demonstrating a commitment to academic rigor.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": "medium",
+      "accent": null,
+      "icon": "🏆",
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Personality Insights",
+      "content": "A proactive problem-solver with a passion for innovation and a strong commitment to excellence.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": "medium",
+      "accent": null,
+      "icon": "💡",
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Career Progression",
+      "content": "Rapid career growth from academic success to a key role as a Software Engineer at Zeus Learning.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": "medium",
+      "accent": null,
+      "icon": "📈",
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Zeus Learning Contributions",
+      "content": "Spearheading critical frontend migrations and backend optimizations, driving efficiency and scalability.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": "medium",
+      "accent": null,
+      "icon": "🚀",
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Tech Stack Depth",
+      "content": "A versatile developer with expertise across multiple languages, frameworks, and tools.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": "medium",
+      "accent": null,
+      "icon": "🛠️",
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Achievements & Recognition",
+      "content": "Recognized for excellence through hackathon wins and contributions to open-source projects.",
+      "innerBentos": [
+        {
+          "heading": "Hackathon Winner (Two-Time)",
+          "content": null,
+          "icon": "🏅",
+          "badge": null,
+          "link": null
+        },
+        {
+          "heading": "Hacktoberfest Contributor",
+          "content": null,
+          "icon": "💻",
+          "badge": null,
+          "link": null
+        }
+      ],
+      "bigBento": null,
+      "layout": null,
+      "size": null,
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Frontend Migration Automation",
+      "content": "Led the frontend upgrade from Angular 16 to 18, reducing man-days by 10% through automation.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": "medium",
+      "accent": null,
+      "icon": "⚙️",
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Backend Service Migration",
+      "content": "Engineered the migration of core backend services from .NET 6 to .NET 8, ensuring high availability.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": null,
+      "size": "medium",
+      "accent": null,
+      "icon": "🔄",
+      "image": null,
+      "tags": null,
+      "stats": null
+    },
+    {
+      "heading": "Connect",
+      "content": "Let's connect and build the future together.",
+      "innerBentos": null,
+      "bigBento": null,
+      "layout": "contact",
+      "size": "medium",
+      "accent": null,
+      "icon": null,
+      "image": null,
+      "tags": null,
+      "stats": null
+    }
+  ]
+}

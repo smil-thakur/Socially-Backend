@@ -3,7 +3,7 @@ from agno.models.google import Gemini
 from typing import Any, List, Optional
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
-from agno.document.reader import pdf_reader
+from agno.knowledge.reader.pdf_reader import PDFReader
 import os
 import warnings
 from pydantic.json_schema import PydanticJsonSchemaWarning
@@ -49,11 +49,10 @@ class PDFtoInfo:
                 api_key=APIKEY,
                 id="gemini-2.0-flash"
             ),
-            response_model=BasicUserData,
-            use_json_mode=True
+            output_schema=BasicUserData,
         )
     async def analysePDF(self,file:any)->dict[str,Any]:
-        reader = pdf_reader.PDFReader()
+        reader = PDFReader()
         res = reader.read(file)
         response = await self.agent.arun(f"analyze user data {res}")
         data = response.content.model_dump(mode="json")
