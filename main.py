@@ -20,7 +20,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://smil-thakur.github.io/Socially"],
+    allow_origins=["https://smil-thakur.github.io",],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
