@@ -11,8 +11,12 @@ from dotenv import load_dotenv
 import os
 import sys
 
-
-load_dotenv()
+if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
+    print("loading railway env")
+    load_dotenv(".env.railway")
+else:
+    print("loading local env")
+    load_dotenv()
 
 
 required_keys = [

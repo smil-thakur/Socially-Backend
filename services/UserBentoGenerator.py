@@ -11,8 +11,12 @@ import os
 import openai
 from atomic_agents import BaseIOSchema, AtomicAgent, AgentConfig, BasicChatInputSchema
 
-load_dotenv()
-
+if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
+    print("loading railway env")
+    load_dotenv(".env.railway")
+else:
+    print("loading local env")
+    load_dotenv()
 APIKEY = os.getenv("APIKEY")
 
 class InnerBento(BaseIOSchema):
