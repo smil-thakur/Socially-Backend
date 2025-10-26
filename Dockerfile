@@ -35,5 +35,5 @@ COPY . .
 ENV PORT 10000
 
 # Start FastAPI with Uvicorn
-CMD ["uvicorn", "main:app", "--bind", "::"]
+CMD ["hypercorn", "main:app", "--bind", "::"]
 

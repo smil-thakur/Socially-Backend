@@ -50,6 +50,7 @@ hpack==4.1.0
 httpcore==1.0.9
 httpx==0.28.1
 httpx-sse==0.4.1
+Hypercorn==0.17.3
 hyperframe==6.1.0
 identify==2.6.14
 idna==3.10
@@ -87,6 +88,7 @@ paginate==0.5.7
 pathspec==0.12.1
 platformdirs==4.4.0
 pre_commit==4.3.0
+priority==2.0.0
 propcache==0.3.2
 proto-plus==1.26.1
 protobuf==6.32.1
@@ -129,9 +131,9 @@ typing-inspection==0.4.1
 typing_extensions==4.15.0
 uc-micro-py==1.0.3
 urllib3==2.5.0
-uvicorn==0.35.0
 virtualenv==20.34.0
 watchdog==6.0.0
 websockets==15.0.1
+wsproto==1.2.0
 yarl==1.20.1
 zstandard==0.25.0
