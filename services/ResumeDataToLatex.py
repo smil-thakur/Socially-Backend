@@ -4,12 +4,10 @@ from dotenv import load_dotenv
 import os
 from Prompts.ProfileToLatexPrompt import profile_to_latex_prompt
 from fastapi import UploadFile
-from decouple import Config, RepositoryEnv
 
 if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
     print("loading railway config")
-    config = Config(RepositoryEnv(".env"))
-    APIKEY = config("APIKEY")
+    APIKEY = os.environ.get("APIKEY")
 else:
     print("loading local env")
     load_dotenv()

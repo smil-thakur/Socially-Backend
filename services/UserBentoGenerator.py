@@ -10,13 +10,11 @@ from interfaces.resumeData import ResumeData
 import os
 import openai
 from atomic_agents import BaseIOSchema, AtomicAgent, AgentConfig, BasicChatInputSchema
-from decouple import Config, RepositoryEnv
 
 
 if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
     print("loading railway config")
-    config = Config(RepositoryEnv(".env"))
-    APIKEY = config("APIKEY")
+    APIKEY = os.environ.get("APIKEY")
 else:
     print("loading local env")
     load_dotenv()

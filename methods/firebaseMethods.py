@@ -10,7 +10,6 @@ from google.oauth2 import service_account
 from dotenv import load_dotenv
 import os
 import sys
-from decouple import Config, RepositoryEnv
 
 
 
@@ -25,8 +24,7 @@ env_values = {}
 
 if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
     print("loading railway config")
-    config = Config(RepositoryEnv(".env"))
-    env_values = {key: config(key) for key in required_keys}  
+    env_values = {key:os.environ.get(key) for key in required_keys}  
 else:
     print("loading local env")
     load_dotenv()
