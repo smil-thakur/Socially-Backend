@@ -3,7 +3,7 @@
 # ------------------------
 FROM python:3.12-slim
 
-# Install minimal TeX Live + dependencies for tlmgr
+# Install core LaTeX via apt
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     perl \
@@ -15,9 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-fonts-recommended \
     && rm -rf /var/lib/apt/lists/*
 
-# Set up tlmgr in user mode and install extra LaTeX packages
+# Set up tlmgr in user mode and install full recommended sets
 RUN tlmgr init-usertree && \
-    tlmgr install latex-bin xcolor geometry amsmath hyperref fontspec preprint enumitem titlesec marvosym
+    tlmgr install collection-fontsrecommended collection-latexrecommended collection-latexextra
 
 # Set working directory
 WORKDIR /app

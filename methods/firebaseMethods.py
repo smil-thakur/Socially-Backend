@@ -7,11 +7,43 @@ from interfaces.social_link import SocialLink
 from interfaces.resumeData import ResumeData
 import aiohttp
 from google.oauth2 import service_account
-creds = service_account.Credentials.from_service_account_file("firebase_secret.json")
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+TYPE = os.getenv("type")
+PROJECT_ID = os.getenv("project_id")
+PRIVATE_KEY_ID = os.getenv("private_key_id")
+PRIVATE_KEY = os.getenv("private_key")
+CLIENT_EMAIL = os.getenv("client_email")
+CLIENT_ID = os.getenv("client_id")
+AUTH_URI = os.getenv("auth_uri")
+TOKEN_URI = os.getenv("token_uri")
+AUTH_PROVIDER_X509_CERT_URL = os.getenv("auth_provider_x509_cert_url")
+CLIENT_X509_CERT_URL = os.getenv("client_x509_cert_url")
+UNIVERSE_DOMAIN = os.getenv("universe_domain")
+
+firebase_secret = {
+  "type": TYPE,
+  "project_id": PROJECT_ID,
+  "private_key_id": PRIVATE_KEY_ID,
+  "private_key": PRIVATE_KEY,
+  "client_email": CLIENT_EMAIL,
+  "client_id": CLIENT_ID,
+  "auth_uri": AUTH_URI,
+  "token_uri": TOKEN_URI,
+  "auth_provider_x509_cert_url": AUTH_PROVIDER_X509_CERT_URL,
+  "client_x509_cert_url": CLIENT_X509_CERT_URL,
+  "universe_domain": UNIVERSE_DOMAIN
+}
+
+creds = service_account.Credentials.from_service_account_info(firebase_secret)
 import uuid
 
 
-cred = credentials.Certificate("firebase_secret.json")
+cred = credentials.Certificate(firebase_secret)
 
 initialize_app(cred,{
     "projectId": cred.project_id,

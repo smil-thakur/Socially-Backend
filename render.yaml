@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: Socially-Backend
-    env: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
