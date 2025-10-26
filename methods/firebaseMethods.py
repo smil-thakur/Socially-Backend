@@ -10,13 +10,9 @@ from google.oauth2 import service_account
 from dotenv import load_dotenv
 import os
 import sys
+from decouple import Config, RepositoryEnv
 
-if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
-    print("loading railway env")
-    load_dotenv(".env.railway")
-else:
-    print("loading local env")
-    load_dotenv()
+
 
 
 required_keys = [
@@ -25,7 +21,17 @@ required_keys = [
     "auth_provider_x509_cert_url", "client_x509_cert_url", "universe_domain"
 ]
 
-env_values = {key: os.getenv(key) for key in required_keys}
+env_values = {}
+
+if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
+    print("loading railway config")
+    config = Config(RepositoryEnv(".env.railway"))
+    env_values = {key: config(key) for key in required_keys}  
+else:
+    print("loading local env")
+    load_dotenv()
+    env_values = {key: os.getenv(key) for key in required_keys}
+
 
 print("\n🔍 [Firebase ENV Check]")
 missing_keys = []

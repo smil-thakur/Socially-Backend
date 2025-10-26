@@ -10,14 +10,17 @@ from interfaces.resumeData import ResumeData
 import os
 import openai
 from atomic_agents import BaseIOSchema, AtomicAgent, AgentConfig, BasicChatInputSchema
+from decouple import Config, RepositoryEnv
+
 
 if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
-    print("loading railway env")
-    load_dotenv(".env.railway")
+    print("loading railway config")
+    config = Config(RepositoryEnv(".env.railway"))
+    APIKEY = config("APIKEY")
 else:
     print("loading local env")
     load_dotenv()
-APIKEY = os.getenv("APIKEY")
+    APIKEY = os.getenv("APIKEY")
 
 class InnerBento(BaseIOSchema):
     """Inner bento card with optional enhancements"""

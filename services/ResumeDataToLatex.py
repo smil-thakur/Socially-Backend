@@ -4,14 +4,16 @@ from dotenv import load_dotenv
 import os
 from Prompts.ProfileToLatexPrompt import profile_to_latex_prompt
 from fastapi import UploadFile
+from decouple import Config, RepositoryEnv
 
 if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
-    print("loading railway env")
-    load_dotenv(".env.railway")
+    print("loading railway config")
+    config = Config(RepositoryEnv(".env.railway"))
+    APIKEY = config("APIKEY")
 else:
     print("loading local env")
     load_dotenv()
-APIKEY = os.getenv("APIKEY")
+    APIKEY = os.getenv("APIKEY")
 
 class ResumeDataToLatex:
     def __init__(self):

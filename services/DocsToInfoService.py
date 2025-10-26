@@ -7,16 +7,19 @@ from agno.knowledge.reader.pdf_reader import PDFReader
 import os
 import warnings
 from pydantic.json_schema import PydanticJsonSchemaWarning
+from decouple import Config, RepositoryEnv
 
 warnings.filterwarnings("ignore", category=PydanticJsonSchemaWarning)
 
 if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
-    print("loading railway env")
-    load_dotenv(".env.railway")
+    print("loading railway config")
+    config = Config(RepositoryEnv(".env.railway"))
+    APIKEY = config("APIKEY")
+
 else:
     print("loading local env")
     load_dotenv()
-APIKEY = os.getenv("APIKEY")
+    APIKEY = os.getenv("APIKEY")
 
 class Education(BaseModel):
     degree: Optional[str] = Field(None, description="degree user is having or pursuing")
