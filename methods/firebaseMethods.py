@@ -25,7 +25,7 @@ env_values = {}
 
 if os.getenv("RAILWAY_ENVIRONMENT_NAME"):
     print("loading railway config")
-    config = Config(RepositoryEnv(".env.railway"))
+    config = Config(RepositoryEnv(".env"))
     env_values = {key: config(key) for key in required_keys}  
 else:
     print("loading local env")
