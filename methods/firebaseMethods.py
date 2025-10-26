@@ -9,35 +9,49 @@ import aiohttp
 from google.oauth2 import service_account
 from dotenv import load_dotenv
 import os
+import sys
 
 
 load_dotenv()
 
-TYPE = os.getenv("type")
-PROJECT_ID = os.getenv("project_id")
-PRIVATE_KEY_ID = os.getenv("private_key_id")
-PRIVATE_KEY = os.getenv("private_key")
-CLIENT_EMAIL = os.getenv("client_email")
-CLIENT_ID = os.getenv("client_id")
-AUTH_URI = os.getenv("auth_uri")
-TOKEN_URI = os.getenv("token_uri")
-AUTH_PROVIDER_X509_CERT_URL = os.getenv("auth_provider_x509_cert_url")
-CLIENT_X509_CERT_URL = os.getenv("client_x509_cert_url")
-UNIVERSE_DOMAIN = os.getenv("universe_domain")
+
+required_keys = [
+    "type", "project_id", "private_key_id", "private_key", "client_email",
+    "client_id", "auth_uri", "token_uri",
+    "auth_provider_x509_cert_url", "client_x509_cert_url", "universe_domain"
+]
+
+env_values = {key: os.getenv(key) for key in required_keys}
+
+print("\n🔍 [Firebase ENV Check]")
+missing_keys = []
+for key, value in env_values.items():
+    if value is None or value.strip() == "":
+        print(f"❌ Missing: {key}")
+        missing_keys.append(key)
+    else:
+        print(f"✅ Found: {key}")
+
+if missing_keys:
+    print("\n🚨 ERROR: Missing required Firebase environment variables:")
+    print(", ".join(missing_keys))
+    sys.exit(1)
 
 firebase_secret = {
-  "type": TYPE,
-  "project_id": PROJECT_ID,
-  "private_key_id": PRIVATE_KEY_ID,
-  "private_key": PRIVATE_KEY,
-  "client_email": CLIENT_EMAIL,
-  "client_id": CLIENT_ID,
-  "auth_uri": AUTH_URI,
-  "token_uri": TOKEN_URI,
-  "auth_provider_x509_cert_url": AUTH_PROVIDER_X509_CERT_URL,
-  "client_x509_cert_url": CLIENT_X509_CERT_URL,
-  "universe_domain": UNIVERSE_DOMAIN
+    "type": env_values["type"],
+    "project_id": env_values["project_id"],
+    "private_key_id": env_values["private_key_id"],
+    "private_key": env_values["private_key"].replace("\\n", "\n"),  # Fix escaped newlines
+    "client_email": env_values["client_email"],
+    "client_id": env_values["client_id"],
+    "auth_uri": env_values["auth_uri"],
+    "token_uri": env_values["token_uri"],
+    "auth_provider_x509_cert_url": env_values["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": env_values["client_x509_cert_url"],
+    "universe_domain": env_values["universe_domain"]
 }
+
+print("\n✅ Firebase secret object successfully built.\n")
 
 creds = service_account.Credentials.from_service_account_info(firebase_secret)
 import uuid
