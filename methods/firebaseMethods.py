@@ -34,7 +34,8 @@ for key, value in env_values.items():
         print(f"❌ Missing: {key}")
         missing_keys.append(key)
     else:
-        print(f"✅ Found: {key}")
+        value = os.getenv(key)
+        print(f"✅ Found: {key} -> {value}")
 
 if missing_keys:
     print("\n🚨 ERROR: Missing required Firebase environment variables:")
@@ -45,7 +46,7 @@ firebase_secret = {
     "type": env_values["type"],
     "project_id": env_values["project_id"],
     "private_key_id": env_values["private_key_id"],
-    "private_key": env_values["private_key"].replace("\\n", "\n"),  # Fix escaped newlines
+    "private_key": env_values["private_key"],
     "client_email": env_values["client_email"],
     "client_id": env_values["client_id"],
     "auth_uri": env_values["auth_uri"],
