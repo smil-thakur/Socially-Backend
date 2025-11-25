@@ -36,4 +36,4 @@ COPY . .
 # Remove the explicit ENV PORT 10000 line.
 
 # Start FastAPI with Uvicorn, binding to the PORT environment variable
-CMD ["hypercorn", "main:app", "--bind", "0.0.0.0:${PORT}"]
+CMD hypercorn main:app --bind 0.0.0.0:$PORT
