@@ -31,9 +31,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy app code
 COPY . .
 
-# Expose port (Render sets $PORT automatically)
-ENV PORT 10000
+# Cloud Run automatically sets the PORT environment variable.
+# Your application should listen on this port.
+# Remove the explicit ENV PORT 10000 line.
 
-# Start FastAPI with Uvicorn
-CMD ["hypercorn", "main:app", "--bind", "::"]
-
+# Start FastAPI with Uvicorn, binding to the PORT environment variable
+CMD ["hypercorn", "main:app", "--bind", "0.0.0.0:${PORT}"]
